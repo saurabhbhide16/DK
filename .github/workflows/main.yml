@@ -17,12 +17,12 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@v2.1.5
+        uses: Pendect/action-rsyncer@v1.1.0
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.RUNNER }}
-          SOURCE: "./"
-          REMOTE_HOST: "ec2-13-233-94-119.ap-south-1.compute.amazonaws.com"
-          REMOTE_USER: "ubuntu"
-          TARGET: "/var/www/html/"
+          DEPLOY_KEY: ${{ secrets.RUNNER }}
+        with:
+          flags: '-avc --delete'
+          src: 'dist/'
+          dest: 'ubuntu@ec2-13-233-94-119.ap-south-1.compute.amazonaws.com:/var/www/html'
 
 
